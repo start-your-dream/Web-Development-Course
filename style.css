@@ -683,11 +683,16 @@ footer {
 
 /* Media Queries */
 @media (max-width: 992px) {
+  nav, header {
+    justify-content: center !important; 
+    padding-left: 0;
+    padding-right: 0;
+  }
   .about-text {
     font-size: 25px;
   }
   #hero p {
-    font-size: 25px;
+    font-size: 17px;
   }
   .card {
     width: 100%;
@@ -725,9 +730,12 @@ footer {
   .btn {
     font-size: 17px;
   }
+
+  #about{
+    padding-top: 130px;
+  }
   .nav-links {
-    font-size: larger;
-    gap: 1.5rem;
+  display: none;
   } /* Simplified for mobile */
 }
 
@@ -736,7 +744,7 @@ footer {
     font-size: 25px;
   }
   #hero p {
-    font-size: 10px;
+    font-size: 17px;
   }
   .mentor-card {
     width: 100%;
