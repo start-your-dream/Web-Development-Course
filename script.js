@@ -165,7 +165,7 @@ function handleFormSubmit(event) {
 
   // EMAILJS SEND FUNCTION
   // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID'
-  /* emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+  emailjs.send('service_mz55an8', 'template_z2s9yin', templateParams)
                 .then(function() {
                     alert('Registration Successful! Check your email for confirmation.');
                     closePayment();
@@ -178,7 +178,7 @@ function handleFormSubmit(event) {
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                 });
-            */
+            
 
   // SIMULATED SUCCESS (Remove this block when using real keys)
   setTimeout(() => {
