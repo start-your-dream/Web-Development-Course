@@ -261,8 +261,6 @@
         <div class="payment-container">
             <div class="qr-section">
                 <h3 style="margin-bottom: 10px;">Scan to Pay</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">UPI ID: <strong>genstack@upi</strong></p>
-                
                 <div class="qr-placeholder">
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=genstack@upi&pn=GenStackAI&am=299" alt="QR Code" class="qr-img" id="dynamic-qr">
                 </div>
@@ -326,19 +324,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Disable Right-Click
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Disable common Inspect shortcuts
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) return false; // F12
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false; // View Source
-        };
-    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>
