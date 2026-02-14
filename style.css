@@ -1,0 +1,762 @@
+/* --- LOADER WRAPPER --- */
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-main);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: opacity 0.8s ease-out, visibility 0.8s;
+}
+
+#loader-wrapper.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* --- NEW POLYGON SVG STYLES --- */
+.loader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.loader .poly {
+  fill: none;
+  /* changed from yellow to your neon cyan accent */
+  stroke: var(--accent-primary); 
+  stroke-width: 10; /* Slightly thinner looks more elegant */
+  transform-origin: center center;
+  animation: move 10s linear infinite;
+  animation-delay: calc(var(--i) * -0.5s);
+  
+  /* Optional: Adds a neon glow effect */
+  filter: drop-shadow(0 0 8px var(--accent-primary)); 
+  opacity: 0.8;
+}
+
+/* Make every 2nd triangle purple for a cool dual-tone effect */
+.loader .poly:nth-child(even) {
+    stroke: var(--accent-secondary);
+    filter: drop-shadow(0 0 8px var(--accent-secondary));
+}
+
+@keyframes move {
+  0% {
+    transform: scale(0) rotate(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+
+/* --- 1. CORE VARIABLES & RESET --- */
+:root {
+  --bg-main: #0a0a16; /* Deep dark blue/black */
+  --bg-secondary: #111124;
+  --accent-primary: #00e5ff; /* Neon Cyan */
+  --accent-secondary: #b700ff; /* Neon Purple */
+  --text-light: #ffffff;
+  --text-gray: #a9a9b3;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --gradient-text: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none; /* Custom cursor */
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2%;
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  top: 0;
+  z-index: 100;
+  background: rgba(15, 15, 35, 0.208);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+/* --- 2. CUSTOM CURSOR --- */
+.cursor-dot,
+.cursor-circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-primary);
+}
+.cursor-circle {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--accent-primary);
+  transition:
+    width 0.3s,
+    height 0.3s,
+    background-color 0.3s;
+}
+/* Hover state for cursor */
+body.hovering .cursor-circle {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 229, 255, 0.1);
+  border-color: var(--accent-secondary);
+}
+
+/* --- 3. UTILITIES & ANIMATIONS --- */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.highlight {
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(
+    45deg,
+    var(--accent-secondary),
+    var(--accent-primary)
+  );
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.btn:hover::before {
+  opacity: 1;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
+}
+
+/* Scroll Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 4. LAYOUT COMPONENTS --- */
+
+/* Navbar */
+
+nav ul {
+  display: flex;
+  list-style: none;
+  text-align: center;
+  gap: 2rem;
+}
+
+nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17px;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: var(--accent-primary);
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+  backdrop-filter: blur(15px);
+  z-index: 1000;
+  border-bottom: var(--border-glass);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  text-align: center;
+}
+.nav-links a {
+  color: var(--text-main);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-links a:hover {
+  color: var(--accent-primary);
+}
+
+/* Sections */
+section {
+  padding: 100px 10%;
+  position: relative;
+}
+
+/* Hero */
+#hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 80px;
+}
+#hero h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+#hero p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- About Course Section --- */
+section {
+  padding: 80px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 20px;
+  border: var(--border-glass);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--gradient-text);
+  border-radius: 2px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-text p {
+  color: var(--text-gray);
+  margin-bottom: 1.5rem;
+}
+
+/* Outcomes Grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+.card {
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 15px;
+  border: var(--border-glass);
+  transition: 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.card i {
+  font-size: 2.5rem;
+  color: var(--accent-primary);
+  margin-bottom: 20px;
+}
+.card h3 {
+  margin-bottom: 15px;
+}
+.card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* --- Mentors Section --- */
+.mentors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.mentor-card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s;
+}
+.mentor-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-secondary);
+}
+
+.mentor-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem auto;
+  border: 3px solid var(--accent-primary);
+  padding: 3px;
+}
+
+.mentor-role {
+  color: var(--accent-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  background: #0077b5;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.linkedin-btn:hover {
+  background: #005e93;
+}
+
+/* Pricing */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.price-card {
+  background: var(--bg-secondary);
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.price-card.featured {
+  border: 2px solid var(--accent-secondary);
+  background: linear-gradient(
+    160deg,
+    rgba(183, 0, 255, 0.05),
+    rgba(10, 10, 22, 1)
+  );
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.popular-tag {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent-secondary);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.price-header h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+  margin-bottom: 2rem;
+}
+.currency {
+  font-size: 1.5rem;
+}
+
+.price-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.price-amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 20px 0;
+}
+
+.price-amount span {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+}
+
+.features-list {
+  list-style: none;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.features-list li {
+  margin-bottom: 10px;
+  color: var(--text-muted);
+}
+.features-list li i {
+  color: var(--accent-primary);
+  margin-right: 10px;
+}
+
+.features-list i {
+  color: var(--accent-primary);
+}
+
+.features-list i.disabled {
+  color: #444;
+}
+
+/* --- 5. PAYMENT PAGE (Initially Hidden) --- */
+#payment-view {
+  display: none; /* Hidden by default */
+  min-height: 100vh;
+  padding-top: 100px;
+  background: var(--bg-main);
+  position: relative;
+  z-index: 500;
+}
+
+.payment-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border: var(--border-glass);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+}
+
+.qr-section {
+  text-align: center;
+  border-right: var(--border-glass);
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-placeholder {
+  width: 250px;
+  height: 250px;
+  background: white;
+  border-radius: 10px;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+}
+/* Using a generated QR code API for realism */
+.qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.form-section h2 {
+  margin-bottom: 30px;
+  color: var(--accent-primary);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-family: var(--font-main);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+.readonly {
+  background: rgba(0, 229, 255, 0.1);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+/* Footer */
+footer {
+  background: #05050b;
+  padding: 50px 10%;
+  margin-top: 100px;
+  border-top: var(--border-glass);
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.footer-links h4 {
+  color: var(--text-main);
+  margin-bottom: 20px;
+}
+.footer-links ul {
+  list-style: none;
+}
+.footer-links li {
+  margin-bottom: 10px;
+}
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer-links a:hover {
+  color: var(--accent-primary);
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+  .about-text {
+    font-size: 25px;
+  }
+  #hero p {
+    font-size: 25px;
+  }
+  .card {
+    width: 100%;
+  }
+  .card p {
+    font-size: 22px;
+  }
+  header {
+    height: 100px;
+  }
+  .mentor-card {
+    width: 100%;
+  }
+  .mentor-card h3 {
+    font-size: 25px;
+  }
+  .mentor-card p {
+    font-size: 20px;
+  }
+  .mentor-card a {
+    font-size: 18px;
+  }
+  .payment-container {
+    grid-template-columns: 1fr;
+  }
+  .price-card.featured {
+    transform: scale(1);
+  }
+  .features-list {
+    font-size: 22px;
+  }
+  .logo {
+    display: none;
+  }
+  .btn {
+    font-size: 17px;
+  }
+  .nav-links {
+    font-size: larger;
+    gap: 1.5rem;
+  } /* Simplified for mobile */
+}
+
+@media (max-width: 480px) {
+  .about-text {
+    font-size: 25px;
+  }
+  #hero p {
+    font-size: 10px;
+  }
+  .mentor-card {
+    width: 100%;
+  }
+  section {
+    padding: 60px 5%;
+  }
+  .payment-container {
+    padding: 20px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}

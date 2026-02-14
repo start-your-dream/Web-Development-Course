@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>START YOUR DREAM | Web Dev + AI Agents Course</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<div id="loader-wrapper">
+  <svg viewBox="0 0 1000 1000" class="loader">
+    <polygon points="500,200 759,650 241, 650" style="--i: 0" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 1" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 2" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 3" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 4" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 5" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 6" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 7" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 8" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 9" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 10" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 11" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 12" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 13" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 14" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 15" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 16" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 17" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 18" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 19" class="poly"></polygon>
+    <polygon points="500,200 759,650 241, 650" style="--i: 20" class="poly"></polygon>
+  </svg>
+</div>
+
+    
+
+    <div id="particles-js"></div>
+    
+    <div class="cursor-dot"></div>
+    <div class="cursor-circle"></div>
+
+    <!-- From Uiverse.io by Danishrehman786 --> 
+        
+
+
+
+    <div id="landing-view">
+        <header>
+            <nav>
+                <div class="logo">GenStack<span class="highlight">AI</span>.</div>
+                <ul class="nav-links">
+                    <li><a href="#about" class="hover-trigger">About</a></li>
+                    <li><a href="#outcomes" class="hover-trigger">Outcomes</a></li>
+                    <li><a href="#pricing" class="hover-trigger">Pricing</a></li>
+                    <li><a href="#mentors" class="hover-trigger">Mentors</a></li>
+                </ul>
+                <button onclick="document.getElementById('pricing').scrollIntoView()" class="btn hover-trigger">Join Now</button>
+            </nav>
+        </header>
+
+        <section id="hero">
+            <div class="reveal">
+                <h1><strong>Stop Coding Like It's 2023.<br>Start building like it’s <span class="highlight">2026. 🚀</span></strong></h1>
+                <p><stong>Master the <strong>MERN Stack</strong>, architect autonomous <strong>AI Agents</strong>, and secure your place in the future of tech with an elite, community-driven bootcamp built for high-impact careers.</strong></p>
+                <button onclick="document.getElementById('pricing').scrollIntoView()" class="btn hover-trigger" style="font-size: 18px; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"><strong>Start Your Dream</strong></button>
+            </div>
+        </section>
+
+        <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text hidden-up">
+                    <h2 class="reveal" style="transition-delay: 0.2s;"><strong>What is <span class="highlight">GenStack AI?</span></strong></h2>
+                    <p class="reveal" style="font-size: 19px;"><em>The traditional way of learning web development is too slow for today's market. Companies aren't just looking for coders; they are looking for engineers who can leverage AI to build 10x faster.</em></p>
+                    <p class="reveal" style="font-size: 19px;"><em>This course bridges the gap. We teach you the foundational MERN stack (MongoDB, Express, React, Node), but we don't stop there. We integrate cutting-edge AI tools like <strong>Bolt.new</strong>, <strong>Lovable</strong>, and <strong>Lyzr AI</strong> directly into the workflow.</em></p>
+                    <p class="reveal" style="font-size: 19px;"><em>It's not about replacing developers; it's about becoming a super-powered one.</em></p>
+                </div>
+                <div class="about-img hidden-up">
+                    <img class="reveal" src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="AI coding interface">
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section id="outcomes">
+            <h2 class="reveal" style="text-align: center; font-size: 2.5rem;"><strong>Course <span class="highlight">Outcomes</strong></span></h2>
+            <div class="grid-container">
+                <div class="card reveal hover-trigger">
+                    <i class="fas fa-code"></i>
+                    <h2><strong>MERN Stack Development </strong></h2>
+                    <p style="font-size: 17px;">Build robust applications using MongoDB, Express, React, and Node.js with best practices.</p>
+                </div>
+                <div class="card reveal hover-trigger">
+                    <i class="fas fa-robot"></i>
+                    <h2>AI Agents Deployment </h2>
+                    <p style="font-size: 17px;">Don't just use AI. Build it. Learn to create autonomous agents using Lyzr AI and Bolt.</p>
+                </div>
+                <div class="card reveal hover-trigger">
+                    <i class="fas fa-briefcase"></i>
+                    <h2>ATS-Friendly Resume </h2>
+                    <p style="font-size: 17px;">Gain insider strategies to bypass Applicant Tracking Systems, optimize for industry-specific keywords.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <h2 class="reveal" style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Simple <span class="highlight">Pricing</span></h2>
+            <div class="grid-container">
+                <div class="price-card reveal hover-trigger">
+                     <div class="price-header">
+                        <h3>The Builder</h3>
+                        <div class="price"><span class="currency">₹</span>299</div>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Full Stack Web Dev (MERN)</li>
+                        <li><i class="fas fa-check-circle"></i> AI Tools (Bolt & Lovable)</li>
+                        <li><i class="fas fa-check-circle"></i> "AI-First" Workflow</li>
+                        <li><i class="fas fa-times-circle disabled"></i> Event Mentorship</li>
+                        <li><i class="fas fa-times-circle disabled"></i> AI Agents & Resume</li>
+                    </ul>
+                    <button class="btn" onclick="openPayment('The Builder', '299')">Choose Plan</button>
+                </div>
+
+                <div class="price-card featured reveal hover-trigger">
+                     <div class="popular-tag">Most Popular</div>
+                    <div class="price-header">
+                        <h3>The Networker</h3>
+                        <div class="price"><span class="currency">₹</span>399</div>
+                    </div>
+                    <ul class="features-list">
+                         <li><i class="fas fa-check-circle"></i> Full Stack Web Dev (MERN)</li>
+                        <li><i class="fas fa-check-circle"></i> AI Tools (Bolt & Lovable)</li>
+                        <li><i class="fas fa-check-circle"></i> "AI-First" Workflow</li>
+                        <li><i class="fas fa-check-circle"></i> **Hyderabad Event Roadmap**</li>
+                        <li><i class="fas fa-times-circle disabled"></i> AI Agents & Resume</li>
+                    </ul>
+                    <button class="btn" onclick="openPayment('The Networker', '399')">Choose Plan</button>
+                </div>
+
+                <div class="price-card reveal hover-trigger">
+                    <div class="price-header">
+                        <h3>The Elite</h3>
+                        <div class="price"><span class="currency">₹</span>499</div>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Full Stack Web Dev (MERN)</li>
+                        <li><i class="fas fa-check-circle"></i> AI Tools (Bolt & Lovable)</li>
+                        <li><i class="fas fa-check-circle"></i> "AI-First" Workflow</li>
+                        <li><i class="fas fa-check-circle"></i> Hyderabad Event Roadmap</li>
+                        <li><i class="fas fa-check-circle"></i> **Lyzr AI Agent Masterclass**</li>
+                        <li><i class="fas fa-check-circle"></i> **AI-Era Resume Prep**</li>
+                    </ul>
+                    <button class="btn" onclick="openPayment('The Elite', '499')">Choose Plan</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="mentors">
+        <div class="container">
+            <h2 class="hidden-up reveal">Meet Your <span class="highlight">Mentors</span></h2>
+            <div  class="mentors-grid">
+                
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQEmSWtxr4R75A/profile-displayphoto-scale_200_200/B56ZlEC1axJoAY-/0/1757783220745?e=1772668800&v=beta&t=TpeUgQvGow4wy1fdvwI_5FcbQxTqSWqXitwyHwh1-aM" alt="Pavan" class="mentor-img">
+                    <h3>Nampalli Pavan Sai</h3>
+                    <span class="mentor-role">FOUNDER AND CEO</span>
+                    <p>Beyond high-level strategy, leadership is defined by mentoring a network of over 500 members, fostering key industry partnerships to bridge the gap between student talent and professional excellence.</p>
+                    <a href="https://www.linkedin.com/in/nampalli-pavan-sai/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="https://i.ibb.co/dfB1gZX/IMG-20240827-WA0021.jpg" alt="Guest Mentor" class="mentor-img">
+                    <h3>K Dhanush Kumar</h3>
+                    <span class="mentor-role">CO-FOUNDER / CTO</span>
+                    <p>Chief Technology Officer at Start Your Dream. Leads technology strategy, product development, and innovation to build scalable, high-performance digital solutions.</p>
+                    <a href="https://www.linkedin.com/in/dhanush-kumar-a949972a2/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="https://i.ibb.co/4q3f38z/Whats-App-Image-2026-02-14-at-11-55-17-PM.jpg" alt="Guest Mentor" class="mentor-img">
+                    <h3>Ankit Kumar Rankawat</h3>
+                    <span class="mentor-role">CO-FOUNDER / CFO</span>
+                    <p>Technology leader with a clear vision for execution and impact. Turning ideas into structured action while fostering growth, confidence, and measurable results.</p>
+                    <a href="https://www.linkedin.com/in/ankit-rankawat-26b80a2a3/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+            </div>
+            <br><br><br>
+
+            <div  class="mentors-grid">
+                
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQE6hPIZENawug/profile-displayphoto-scale_200_200/B4DZk0q3vXGgAY-/0/1757525279286?e=1772668800&v=beta&t=poghDtfpwZHJasLYsKP6qtS_x_QphzqEmK6dPfvSsQY" alt="Pavan" class="mentor-img">
+                    <h3>Sada Vamshi Mancholla</h3>
+                    <span class="mentor-role">BACKEND DEVELOPER / COO </span>
+                    <p>Former Google Student Ambassador and drives community growth by hosting tech events and simplifying complex topics into accessible insights. His </p>
+                    <a href="https://www.linkedin.com/in/sada-vamshi-m1307/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="" alt="Guest Mentor" class="mentor-img">
+                    <h3>Narsingoju Sai Srinivas</h3>
+                    <span class="mentor-role">AI AGENT SPECIALIST / CMO </span>
+                    <p>Senior GenAI Engineer specializing in autonomous agent frameworks. Formerly at Microsoft working on large scale AI integrations.</p>
+                    <a href="https://www.linkedin.com/in/narsingoju-sai-srinivasu-5544722bb/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+
+                <div class="reveal mentor-card hidden-up" style="transition-delay: 0.1s;">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQENmL9EX1Oy9w/profile-displayphoto-scale_200_200/B56ZvSbB9VHAAY-/0/1768761864583?e=1772668800&v=beta&t=KMee3p-sO66R3ARtqKrhyW_AVHMEausjEG91L0NDKpM" alt="Guest Mentor" class="mentor-img">
+                    <h3>Rangu Mani Sai Chary</h3>
+                    <span class="mentor-role">FRONTEND DEVELOPER / CIO</span>
+                    <p>Oversees digital infrastructure, and innovation initiatives, that empower individuals to build skills, advance their careers, and achieve their professional goals.</p>
+                    <a href="https://www.linkedin.com/in/mani-sai-chary-r-9949562a3/" class="linkedin-btn"><i class="fab fa-linkedin"></i> Connect</a>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-about" style="flex: 2; min-width: 300px;">
+                    <div class="logo">GenStack<span class="highlight">AI</span>.</div>
+                    <p style="margin-top:20px; color: #888;">Empowering the next generation of developers with AI tools and community support.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://chat.whatsapp.com/C1w7UUYBwoh5vmnVzKwojT" class="hover-trigger"><i class="fab fa-whatsapp"></i> WhatsApp Group</a></li>
+                        <li><a href="https://www.linkedin.com/company/start-your-dream.pad/" class="hover-trigger"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        <li><a href="https://startyourdream.vercel.app/" class="hover-trigger"><i class="fas fa-globe"></i> Website</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Course</a></li>
+                        <li><a href="#pricing">Pricing Plans</a></li>
+                        <li><a href="#mentors">Mentors</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px; color: #555; font-size: 0.8rem;">
+                &copy; 2026 GenStack AI. All rights reserved.
+            </div>
+        </footer>
+    </div>
+
+    <div id="payment-view">
+        <div style="padding: 0 10% 20px 10%;">
+            <button onclick="closePayment()" style="background:none; border:none; color:white; font-size:1.2rem; display:flex; align-items:center; gap:10px;" class="hover-trigger">
+                <i class="fas fa-arrow-left"></i> Back to Course
+            </button>
+        </div>
+
+        <div class="payment-container">
+            <div class="qr-section">
+                <h3 style="margin-bottom: 10px;">Scan to Pay</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">UPI ID: <strong>genstack@upi</strong></p>
+                
+                <div class="qr-placeholder">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=genstack@upi&pn=GenStackAI&am=299" alt="QR Code" class="qr-img" id="dynamic-qr">
+                </div>
+                <p style="font-size: 0.9rem; color: var(--accent-secondary);">*Please keep a screenshot of your payment.</p>
+            </div>
+
+            <div class="form-section">
+                <h2>Secure Your Spot</h2>
+                <form id="payment-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label>Selected Plan</label>
+                        <input type="text" id="selected-plan" name="plan" class="form-control readonly" readonly>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="name" class="form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone" class="form-control" required placeholder="+91 99999 99999">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" class="form-control" required placeholder="john@college.edu">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>College Name</label>
+                            <input type="text" name="college" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Year & Branch</label>
+                            <input type="text" name="branch" class="form-control" required placeholder="3rd Year CSE">
+                        </div>
+                    </div>
+
+                    <hr style="border:0; border-top:1px solid #333; margin: 20px 0;">
+
+                    <div class="form-group">
+                        <label>Transaction ID (UTR)</label>
+                        <input type="text" name="transaction_id" class="form-control" required placeholder="Ex: 1234567890">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Screenshot</label>
+                        <input type="file" name="screenshot" class="form-control" accept="image/*" required>
+                        <small style="color: #666;">*Proof of payment is required for verification.</small>
+                    </div>
+
+                    <button type="submit" class="btn hover-trigger" style="width: 100%; margin-top: 10px;" id="submit-btn">
+                        Submit Registration <i class="fas fa-paper-plane" style="margin-left:10px;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable common Inspect shortcuts
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false; // F12
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) return false; // View Source
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
