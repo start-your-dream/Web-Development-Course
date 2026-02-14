@@ -694,6 +694,11 @@ footer {
   #hero p {
     font-size: 17px;
   }
+  .qr-section{
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
   .card {
     width: 100%;
   }
