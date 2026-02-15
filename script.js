@@ -246,3 +246,30 @@ async function handleFormSubmit(event) {
         submitBtn.style.background = "";
     }
 }
+
+async function sendEmail(imageUrl) {
+    const params = {
+        plan: document.getElementById("selected-plan").value,
+        name: document.querySelector('input[name="name"]').value,
+        email: document.querySelector('input[name="email"]').value,
+        transaction_id: document.querySelector('input[name="transaction_id"]').value,
+        screenshot_link: imageUrl
+    };
+
+    const serviceID = "service_mz55an8";
+    const adminTemplateID = "template_z2s9yin"; 
+    const userTemplateID = "template_z8m03yg"; // Double-check this ID!
+
+  try {
+        // This triggers BOTH at once
+        await Promise.all([
+            emailjs.send(serviceID, adminTemplateID, params),
+            emailjs.send(serviceID, userTemplateID, params)
+        ]);
+        
+        console.log("Success: Both notification and auto-reply sent.");
+        alert("✅ Success! Check your email for confirmation.");
+    } catch (error) {
+        console.error("Email failed:", error);
+    }
+}
