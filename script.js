@@ -1,18 +1,18 @@
 window.addEventListener("load", () => {
-    const loader = document.getElementById("loader-wrapper");
-    
-    // Function to hide loader
-    const hideLoader = () => {
-        if (loader) {
-            loader.classList.add("fade-out");
-        }
-    };
+  const loader = document.getElementById("loader-wrapper");
 
-    // 1. Hide immediately when page is fully loaded
-    hideLoader();
+  // Function to hide loader
+  const hideLoader = () => {
+    if (loader) {
+      loader.classList.add("fade-out");
+    }
+  };
 
-    // 2. Fail-safe: Force hide after 4 seconds even if internet is slow
-    setTimeout(hideLoader, 10000);
+  // 1. Hide immediately when page is fully loaded
+  hideLoader();
+
+  // 2. Fail-safe: Force hide after 4 seconds even if internet is slow
+  setTimeout(hideLoader, 10000);
 });
 
 // --- 1. INITIALIZATION ---
@@ -140,54 +140,109 @@ function closePayment() {
 }
 
 // --- 6. FORM SUBMISSION LOGIC ---
-function handleFormSubmit(event) {
-  event.preventDefault();
-  const btn = document.getElementById("submit-btn");
-  const originalText = btn.innerHTML;
+async function handleFormSubmit(event) {
+    event.preventDefault();
 
-  // Show loading state
-  btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
-  btn.disabled = true;
+    const submitBtn = document.getElementById("submit-btn");
+    const originalText = submitBtn.innerHTML;
+    const fileInput = document.querySelector('input[name="screenshot"]');
+    const file = fileInput.files[0];
 
-  // Prepare Parameters
-  // NOTE: In a real scenario, you need to match these keys with your EmailJS template variables
-  const templateParams = {
-    plan: document.querySelector('[name="plan"]').value,
-    name: document.querySelector('[name="name"]').value,
-    email: document.querySelector('[name="email"]').value,
-    phone: document.querySelector('[name="phone"]').value,
-    college: document.querySelector('[name="college"]').value,
-    branch: document.querySelector('[name="branch"]').value,
-    transaction_id: document.querySelector('[name="transaction_id"]').value,
-    // Note: File attachments require advanced EmailJS setup or a cloud link.
-    // For this code, we assume the text data sends successfully.
-  };
+    // --- YOUR KEY IS ALREADY CONFIRMED ---
+    const imgbbAPIKey = "223628172fdaf72384576862b64dae93"; 
+    // -------------------------------------
 
-  // EMAILJS SEND FUNCTION
-  // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID'
-  emailjs.send('service_mz55an8', 'template_z2s9yin', templateParams)
-                .then(function() {
-                    alert('Registration Successful! Check your email for confirmation.');
-                    closePayment();
-                    document.getElementById('payment-form').reset();
-                }, function(error) {
-                    alert('Failed to send. Please contact admin manually via WhatsApp.');
-                    console.log('FAILED...', error);
-                })
-                .finally(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                });
-            
+    if (!file) {
+        alert("Please upload the payment screenshot first.");
+        return;
+    }
 
-  // SIMULATED SUCCESS (Remove this block when using real keys)
-  setTimeout(() => {
-    alert(
-      "SUCCESS! \n\n(Simulated) Data sent to Admin. \nTransaction ID: " +
-        templateParams.transaction_id,
-    );
-    btn.innerHTML = originalText;
-    btn.disabled = false;
-    closePayment();
-  }, 1500);
+    // Start Upload Process
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    submitBtn.disabled = true;
+
+    try {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        // 1. Upload to ImgBB
+        const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbAPIKey}`, {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            throw new Error(result.error.message);
+        }
+
+        const imageUrl = result.data.url;
+        console.log("Upload success:", imageUrl);
+
+        // 2. Send Email
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Sending Email...';
+
+        const emailParams = {
+            plan: document.getElementById("selected-plan").value,
+            name: document.querySelector('input[name="name"]').value,
+            email: document.querySelector('input[name="email"]').value,
+            phone: document.querySelector('input[name="phone"]').value,
+            college: document.querySelector('input[name="college"]').value,
+            branch: document.querySelector('input[name="branch"]').value,
+            transaction_id: document.querySelector('input[name="transaction_id"]').value,
+            screenshot_link: imageUrl
+        };
+
+        // REPLACE THESE WITH YOUR ACTUAL EMAILJS IDS
+        const serviceID = "service_mz55an8";   
+        const templateID = "template_z2s9yin"; 
+
+        await emailjs.send(serviceID, templateID, emailParams);
+
+        // Success!
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Registered!';
+        submitBtn.style.background = "#00e5ff";
+        alert("✅ Registration Successful! Check your email.");
+
+        document.getElementById("payment-form").reset();
+        setTimeout(() => {
+            // Close the payment modal logic if you have it
+            if (typeof closePayment === "function") { 
+                closePayment(); 
+            }
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.background = "";
+        }, 2000);
+
+    } catch (error) {
+        console.error("FULL ERROR OBJECT:", error); // Check Console (F12) for details
+
+        let errorMessage = "Something went wrong.";
+
+        // 1. Check for Standard Errors (like Network issues)
+        if (error.message) {
+            errorMessage = error.message;
+        } 
+        // 2. Check for EmailJS Errors (they use .text instead of .message)
+        else if (error.text) {
+            errorMessage = error.text;
+        } 
+        // 3. Check if the error is just a text string
+        else if (typeof error === "string") {
+            errorMessage = error;
+        } 
+        // 4. Last resort: turn the object into text
+        else {
+            errorMessage = JSON.stringify(error);
+        }
+
+        alert("❌ Failed: " + errorMessage);
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        submitBtn.style.background = "";
+    }
 }
